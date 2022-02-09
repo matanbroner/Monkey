@@ -17,6 +17,7 @@ const (
 	// Ops
 	ASSIGN = "="
 	PLUS   = "+"
+	MINUS  = "-"
 
 	// Syntax Chars
 	COMMA     = ","
@@ -30,3 +31,14 @@ const (
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 )
+
+func New(tokenType TokenType, ch byte) *Token {
+	var literal string
+	if ch == 0 {
+		literal = ""
+	} else {
+		literal = string(ch)
+	}
+	tok := &Token{Type: tokenType, Literal: literal}
+	return tok
+}
