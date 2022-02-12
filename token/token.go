@@ -15,9 +15,16 @@ const (
 	INT   = "INT"
 
 	// Ops
-	ASSIGN = "="
-	PLUS   = "+"
-	MINUS  = "-"
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
+	LT       = "<"
+	GT       = ">"
+	EQ       = "=="
+	NEQ      = "!="
 
 	// Syntax Chars
 	COMMA     = ","
@@ -30,6 +37,11 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 )
 
 func New(tokenType TokenType, ch byte) *Token {
@@ -41,4 +53,21 @@ func New(tokenType TokenType, ch byte) *Token {
 	}
 	tok := &Token{Type: tokenType, Literal: literal}
 	return tok
+}
+
+var keywords = map[string]TokenType{
+	"fn":     FUNCTION,
+	"let":    LET,
+	"if":     IF,
+	"else":   ELSE,
+	"true":   TRUE,
+	"false":  FALSE,
+	"return": RETURN,
+}
+
+func LookupKeyword(literal string) TokenType {
+	if tok, ok := keywords[literal]; ok {
+		return tok
+	}
+	return IDENT // is user defined identifier
 }
